@@ -34,13 +34,12 @@ function david_woocommerce_login_form1(){
 		$cbnet_rscc_captcha_image_height = $cbnet_rscc_captcha->img_size[1];
 		$cbnet_rscc_captcha_field_size = $cbnet_rscc_captcha->char_length;
 		?>
-		<style>.woocommerce .col2-set .col-1 .form-captcha input{ border: 1px solid #d3ced2; font-size: 13px; line-height: 18px;  padding: 9px;}
+		<style>.woocommerce .form-captcha {  float: left;  margin-top: 10px;  width: 100%;} .woocommerce .col2-set .col-1 .form-captcha input{ border: 1px solid #d3ced2; font-size: 13px; line-height: 18px;  padding: 9px;}
 .woocommerce .form-captcha img{margin-top:7px;}</style>
 		<p class="form-captcha"><img src="<?php echo $cbnet_rscc_captcha_image_src; ?>" alt="captcha" width="<?php echo $cbnet_rscc_captcha_image_width; ?>" height="<?php echo $cbnet_rscc_captcha_image_height; ?>" />
 			<label for="captcha_code"><?php echo $cbnet_rscc_captcha_form_label; ?></label>
 			<?php echo "<input type='text' class='input-text' name='comment_captcha_code' id='comment_captcha_code' size='$cbnet_rscc_captcha_field_size'/>"; ?>
 			<input type="hidden" name="comment_captcha_prefix" id="comment_captcha_prefix" value="<?php echo $cbnet_rscc_captcha_prefix; ?>" />
-			<p id="cbnet-rscc-captcha-verify">Please enter the CAPTCHA text</p>
 		</p> <?php
 	
 	}
@@ -60,7 +59,7 @@ function filter_woocommerce_process_login_errors( $validation_error, $post_usern
 		$cbnet_rscc_captcha_correct = $cbnet_rscc_captcha->check( $cbnet_rscc_captcha_prefix, $cbnet_rscc_captcha_code );
 		// If CAPTCHA validation fails (incorrect value entered in CAPTCHA field) mark comment as spam.
 		if ( true != $cbnet_rscc_captcha_correct ) {
-			$validation_error = new WP_Error( 'empty_captcha', '<strong>ERROR</strong>: Please retry CAPTCHA', 'wc-no-captcha');
+			$validation_error = new WP_Error( 'empty_captcha', 'Please retry CAPTCHA', 'wc-no-captcha');
 		}
 		// clean up the tmp directory
 		$cbnet_rscc_captcha->remove($cbnet_rscc_captcha_prefix);
